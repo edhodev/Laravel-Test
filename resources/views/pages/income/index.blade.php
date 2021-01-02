@@ -19,7 +19,7 @@
         <x-slot name="tbody"></x-slot>
     </x-table>
 @endsection
-{{-- @push('scripts')
+@push('scripts')
     <script>
         $(document).ready(function() {
             var t = $('.dataTable').DataTable({
@@ -28,13 +28,15 @@
                     serverSide : true,
                     info: true,
                     ajax : {
-                            url : '{!! route('blog.data') !!}',
+                            url : '{!! route('income.data') !!}',
                         },
                     columns:[
                             { data:'DT_RowIndex',name:'DT_RowIndex',  orderable: false, searchable: false, className:'text-center'},
-                            { data:'title', name:'title',  className: 'text-center'},
-                            { data:'created_at', name: 'created_at',  className: 'text-center'},
-                            { data:'updated_at', name: 'updated_at',  className: 'text-center'},
+                            { data:'buyer', name:'buyer',  className: 'text-center'},
+                            { data:'item', name:'item',  className: 'text-center'},
+                            { data:'price', name: 'price',  className: 'text-center'},
+                            { data:'total', name: 'total',  className: 'text-center'},
+                            { data:'total_price', name: 'total_price',  className: 'text-center'},
                             { data:'action', name:'action', orderable: false, searchable: false, className: 'text-center'}
                     ]
 
@@ -46,4 +48,4 @@
             } ).draw();
         })
     </script>
-@endpush --}}
+@endpush

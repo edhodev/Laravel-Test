@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Income;
 use Illuminate\Http\Request;
+use DataTables;
 
 class IncomeController extends Controller
 {
@@ -17,11 +18,34 @@ class IncomeController extends Controller
         return view('pages.income.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function data()
+    {
+        $data = Income::all();
+        $data = $data->map(function($item) {
+            return (object)[
+                'id' => $item->id,
+                'buyer' => $item->buyer,
+                'item' => $item->item,
+                'price' => "Rp." .  number_format($item->price, 0, ',', '.'),
+                'total' => $item->total,
+                'total_price' => "Rp." . number_format($item->total_price, 0, ',', '.')
+            ];
+        });
+        return DataTables::of($data)
+        ->addIndexColumn()
+        ->addColumn('action', function ($item) {
+            return '
+                <a href="'. route('income.show',$item->id).'" class="btn btn-primary">
+                    <i class="fa fa-edit" style="color:white"></i>
+                </a>
+                <a href="'. route('blog.delete',$item->id).'" class="btn btn-danger">
+                    <i class="fa fa-trash" style="color:white"></i>
+                </a>
+              ';
+        })
+        ->make(true);
+    }
+    
     public function create()
     {
         $action = "create";
@@ -67,46 +91,52 @@ class IncomeController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Income  $income
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Income $income)
+    public function show($id)
     {
-        //
+        try {
+            $action = "edit";
+            $data = Income::find($id);
+            return view('pages.income.form', compact('action','data'));
+        } catch(\Throwable $th)
+        {
+            return $th->getMessage();
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Income  $income
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Income $income)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'photo' => 'image|max:30480',
+            'buyer' => 'required | max:191',
+            'address' => 'required',
+            'item' => 'required | max: 191',
+            'price' => 'required',
+            'total' => 'required | numeric',
+            'total_price' => 'required'
+        ]);
+        try {
+            $img = null;
+            if($request->has('image')) {
+                $name = time() . $request->image->getClientOriginalName();
+                $img = $request->image->storeAs('public/incomes/img/', $name);
+            }
+            Income::find($id)
+                ->update([
+                    'image' => $img,
+                    'buyer' => $request->buyer,
+                    'address'=> $request->address,
+                    'item' => $request->item,
+                    'price' => $request->price,
+                    'total' => $request->total,
+                    'total_price' => $request->total_price
+                ]);
+            return redirect()->route('income')->with(['type'=>'update']);
+        } catch(\Throwable $th)
+        {
+            return $th->getMessage();
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Income  $income
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Income $income)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Income  $income
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Income $income)
     {
         //

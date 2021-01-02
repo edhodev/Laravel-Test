@@ -18,6 +18,9 @@ Route::group(['prefix' => 'blog'], function () {
 });
 Route::group(['prefix' => 'incomes'], function () {
     Route::get('/', [IncomeController::class, 'index'])->name('income');
+    Route::get('data', [IncomeController::class, 'data'])->name('income.data');
+    Route::get('show/{id}', [IncomeController::class, 'show'])->name('income.show');
     Route::get('create', [IncomeController::class, 'create'])->name('income.create');
     Route::post('store', [IncomeController::class, 'store'])->name('income.store');
+    Route::post('update/{id}', [IncomeController::class, 'update'])->name('income.update');
 });
