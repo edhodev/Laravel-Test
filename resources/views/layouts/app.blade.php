@@ -272,7 +272,7 @@
               </li>
               <li><a class="nav-link" href="{{ route('blog') }}"><i class="far fa-edit"></i> <span>Blog</span></a></li>
               <li><a class="nav-link" href="{{ route('income') }}"><i class="far fa-edit"></i> <span>Incomes</span></a></li>
-              <li><a class="nav-link" href="blank.html"><i class="far fa-edit"></i> <span>Expense</span></a></li>
+              <li><a class="nav-link" href="{{ route('expense') }}"><i class="far fa-edit"></i> <span>Expense</span></a></li>
             </ul>
         </aside>
       </div>

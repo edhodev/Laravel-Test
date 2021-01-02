@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\ExpenseController;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -24,4 +25,13 @@ Route::group(['prefix' => 'incomes'], function () {
     Route::post('store', [IncomeController::class, 'store'])->name('income.store');
     Route::post('update/{id}', [IncomeController::class, 'update'])->name('income.update');
     Route::get('delete/{id}', [IncomeController::class, 'delete'])->name('income.delete');
+});
+Route::group(['prefix' => 'expense'], function () {
+    Route::get('/', [ExpenseController::class, 'index'])->name('expense');
+    Route::get('data', [ExpenseController::class, 'data'])->name('expense.data');
+    Route::get('show/{id}', [ExpenseController::class, 'show'])->name('expense.show');
+    Route::get('create', [ExpenseController::class, 'create'])->name('expense.create');
+    Route::post('store', [ExpenseController::class, 'store'])->name('expense.store');
+    Route::post('update/{id}', [ExpenseController::class, 'update'])->name('expense.update');
+    Route::get('delete/{id}', [ExpenseController::class, 'delete'])->name('expense.delete');
 });

@@ -18,7 +18,7 @@ class CreateExpensesTable extends Migration
             $table->text('image')->nullable();
             $table->string('supplier',191);
             $table->text('address');
-            $table->text('name');
+            $table->text('item');
             $table->double('price');
             $table->integer('total');
             $table->double('total_price');

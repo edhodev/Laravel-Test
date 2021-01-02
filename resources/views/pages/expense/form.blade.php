@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title', 'Income')
+@section('title', 'Expense')
 @section('content')
     <x-card>
         <x-slot name="header">Data Baru</x-slot>
         <x-slot name="body">
-            <form action="{{ $action == "create" ? route('income.store') : route('income.update', ['id'=>$data->id])}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ $action == "create" ? route('expense.store') : route('expense.update', ['id'=>$data->id])}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Image</label>
@@ -23,10 +23,10 @@
                     </div>
                   </div>
                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Buyer</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Supplier</label>
                     <div class="col-sm-12 col-md-7">
-                        <input type="text" name="buyer" class="form-control" placeholder="--Please Insert--" value="{{ $action == 'edit' ? $data->buyer : '' }}">
-                        @error('buyer')
+                        <input type="text" name="supplier" class="form-control" placeholder="--Please Insert--" value="{{ $action == 'edit' ? $data->supplier : '' }}">
+                        @error('supplier')
                            <div style="color:red">{{ $message }}</div>
                         @enderror
                     </div>
