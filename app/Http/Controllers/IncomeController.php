@@ -38,7 +38,7 @@ class IncomeController extends Controller
                 <a href="'. route('income.show',$item->id).'" class="btn btn-primary">
                     <i class="fa fa-edit" style="color:white"></i>
                 </a>
-                <a href="'. route('blog.delete',$item->id).'" class="btn btn-danger">
+                <a href="'. route('income.delete',$item->id).'" class="btn btn-danger">
                     <i class="fa fa-trash" style="color:white"></i>
                 </a>
               ';
@@ -137,8 +137,14 @@ class IncomeController extends Controller
         }
     }
 
-    public function destroy(Income $income)
+    public function delete($id)
     {
-        //
+        try {
+            Income::destroy($id);
+            return redirect()->route('income')->with(['type'=>'delete']);
+        } catch(\Throwable $th)
+        {
+            return $th->getMessage();
+        }
     }
 }

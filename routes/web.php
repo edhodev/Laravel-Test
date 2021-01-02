@@ -23,4 +23,5 @@ Route::group(['prefix' => 'incomes'], function () {
     Route::get('create', [IncomeController::class, 'create'])->name('income.create');
     Route::post('store', [IncomeController::class, 'store'])->name('income.store');
     Route::post('update/{id}', [IncomeController::class, 'update'])->name('income.update');
+    Route::get('delete/{id}', [IncomeController::class, 'delete'])->name('income.delete');
 });
