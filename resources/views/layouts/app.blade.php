@@ -27,6 +27,10 @@
   <link rel="stylesheet" href="{{ asset('assets/node_modules/codemirror/lib/codemirror.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/node_modules/codemirror/theme/duotone-dark.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/node_modules/selectric/public/selectric.css') }}">
+
+  <!-- Toast -->
+  <link rel="stylesheet" href="{{ asset('assets/node_modules/izitoast/dist/css/iziToast.min.css') }}">
+
 </head>
 
 <body>
@@ -803,6 +807,34 @@
   <!-- Page Specific JS File -->
   <script src="{{ asset('assets/js/page/index.js') }}"></script>
 
+  <!-- Toast -->
+  <script src="{{ asset('assets/node_modules/izitoast/dist/js/iziToast.min.js') }}"></script>
+  <script src="{{ asset('assets/js/page/modules-toastr.js') }}"></script>
+  <script>
+        $("document").ready(function() {
+          @if(Session::has('type'))
+            @if (Session::get('type') == "store")
+                iziToast.success({
+                    title: 'Success!',
+                    message: 'Data Berhasil Ditambahkan',
+                    position: 'topRight'
+                });
+            @elseif(Session::get('type') == "update")
+                iziToast.success({
+                    title: 'Success!',
+                    message: 'Data Berhasil Diubah',
+                    position: 'topRight'
+                });
+            @elseif(Session::get('type') == "delete")
+                iziToast.success({
+                    title: 'Success!',
+                    message: 'Data Berhasil Dihapus',
+                    position: 'topRight'
+                });
+            @endif
+          @endif
+        });
+  </script>
   @stack('scripts')
 </body>
 </html>

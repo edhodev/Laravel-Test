@@ -98,7 +98,7 @@ class BlogController extends Controller
                 'category' => $request->category,
                 'body'     => $request->content
             ]);
-            return redirect()->route('blog');
+            return redirect()->route('blog')->with(['type'=>'store']);
         } catch(\Throwable $th)
         {
             return $th->getMessage();
@@ -137,24 +137,18 @@ class BlogController extends Controller
                     'category' => $request->category,
                     'body'     => $request->content
                 ]);
-            return redirect()->route('blog');
+            return redirect()->route('blog')->with(['type'=>'update']);
         } catch(\Throwable $th)
         {
             return $th->getMessage();
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Blog  $blog
-     * @return \Illuminate\Http\Response
-     */
     public function delete($id)
     {
         try {
             Blog::destroy($id);
-            return redirect()->route('blog');
+            return redirect()->route('blog')->with(['type'=>'delete']);
         } catch(\Throwable $th)
         {
             return $th->getMessage();
