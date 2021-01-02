@@ -16,9 +16,9 @@ class CreateIncomesTable extends Migration
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
             $table->text('image')->nullable();
-            $table->string('buyer');
+            $table->string('buyer', 191);
             $table->text('address');
-            $table->string('name', 191);
+            $table->string('item', 191);
             $table->double('price');
             $table->integer('total');
             $table->double('total_price');

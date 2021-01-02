@@ -28,6 +28,9 @@
   <link rel="stylesheet" href="{{ asset('assets/node_modules/codemirror/theme/duotone-dark.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/node_modules/selectric/public/selectric.css') }}">
 
+  <link rel="stylesheet" href="{{ asset('assets/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+
+
   <!-- Toast -->
   <link rel="stylesheet" href="{{ asset('assets/node_modules/izitoast/dist/css/iziToast.min.css') }}">
 
@@ -268,7 +271,7 @@
                 <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
               </li>
               <li><a class="nav-link" href="{{ route('blog') }}"><i class="far fa-edit"></i> <span>Blog</span></a></li>
-              <li><a class="nav-link" href="blank.html"><i class="far fa-edit"></i> <span>Incomes</span></a></li>
+              <li><a class="nav-link" href="{{ route('income') }}"><i class="far fa-edit"></i> <span>Incomes</span></a></li>
               <li><a class="nav-link" href="blank.html"><i class="far fa-edit"></i> <span>Expense</span></a></li>
             </ul>
         </aside>
@@ -799,7 +802,12 @@
   <script src="{{ asset('assets/node_modules/codemirror/lib/codemirror.js') }} "></script>
   <script src="{{ asset('assets/node_modules/codemirror/mode/javascript/javascript.js') }}"></script>
   <script src="{{ asset('assets/node_modules/selectric/public/jquery.selectric.min.js') }}"></script>
+
+  <script src="{{ asset('assets/node_modules/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
+  <script src="{{ asset('assets/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
   
+  <script src="{{ asset('assets/js/page/features-post-create.js') }}"></script>
+
   <!-- Template JS File -->
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   <script src="{{ asset('assets/js/custom.js') }}"></script>

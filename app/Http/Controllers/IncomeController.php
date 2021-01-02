@@ -14,7 +14,7 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.income.index');
     }
 
     /**
@@ -24,7 +24,8 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        //
+        $action = "create";
+        return view('pages.income.form', compact('action'));
     }
 
     /**
@@ -35,7 +36,35 @@ class IncomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'photo' => 'image|max:30480',
+            'buyer' => 'required | max:191',
+            'address' => 'required',
+            'item' => 'required | max: 191',
+            'price' => 'required',
+            'total' => 'required | numeric',
+            'total_price' => 'required'
+        ]);
+        try {
+            $img = null;
+            if($request->has('image')) {
+                $name = time() . $request->image->getClientOriginalName();
+                $img = $request->image->storeAs('public/incomes/img/', $name);
+            }
+            Income::create([
+                'image' => $img,
+                'buyer' => $request->buyer,
+                'address'=> $request->address,
+                'item' => $request->item,
+                'price' => $request->price,
+                'total' => $request->total,
+                'total_price' => $request->total_price
+            ]);
+            return redirect()->route('income')->with(['type'=>'store']);
+        } catch(\Throwable $th)
+        {
+            return $th->getMessage();
+        }
     }
 
     /**
