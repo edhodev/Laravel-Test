@@ -5,27 +5,46 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use DataTables, \Carbon\Carbon;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $data = Blog::all();
         return view('pages.blog.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function data()
+    {
+        $data = Blog::all();
+        $data = $data->map(function($item) {
+            return (object)[
+                'id' => $item->id,
+                'title' => $item->title,
+                'created_at' => Carbon::parse($item->created_at)->format('d/m/Y h:i:s'),
+                'updated_at' => Carbon::parse($item->update_at)->format('d/m/Y h:i:s'),
+            ];
+        });
+        return DataTables::of($data)
+        ->addIndexColumn()
+        ->addColumn('action', function ($item) {
+            return '
+                <a href="'. route('blog.show',$item->id).'" class="btn btn-primary">
+                    <i class="fa fa-edit" style="color:white"></i>
+                </a>
+                <a href="'. route('blog.delete',$item->id).'" class="btn btn-danger">
+                    <i class="fa fa-trash" style="color:white"></i>
+                </a>
+              ';
+        })
+        ->make(true); 
+    }
+
     public function create()
     {
-        return view('pages.blog.form');
+        $action = "create";
+        return view('pages.blog.form', compact('action'));
     }
 
     /**
@@ -86,38 +105,43 @@ class BlogController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Blog  $blog
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Blog $blog)
+    public function show($id)
     {
-        //
+        try {
+            $action = "edit";
+            $data = Blog::find($id);
+            return view('pages.blog.form', compact('action','data'));
+        } catch(\Throwable $th)
+        {
+            return $th->getMessage();
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Blog  $blog
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Blog $blog)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Blog  $blog
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title'   => 'required',
+            'category'=> 'required',
+            'content' => 'required'
+        ]);
+        try {
+            Blog::find($id)
+                ->update([
+                    'title'    => $request->title,
+                    'slug'     => Str::slug($request->title),
+                    'category' => $request->category,
+                    'body'     => $request->content
+                ]);
+            return redirect()->route('blog');
+        } catch(\Throwable $th)
+        {
+            return $th->getMessage();
+        }
     }
 
     /**
@@ -126,8 +150,14 @@ class BlogController extends Controller
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function delete($id)
     {
-        //
+        try {
+            Blog::destroy($id);
+            return redirect()->route('blog');
+        } catch(\Throwable $th)
+        {
+            return $th->getMessage();
+        }
     }
 }
