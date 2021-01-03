@@ -9,7 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 // Route::get('login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('login', [AuthController::class,'auth'])->name('auth');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
