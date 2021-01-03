@@ -29,6 +29,16 @@
                <form action="{{ route('auth') }}" method="POST">
                  @csrf
                  <div class="card-body">
+                  @if (Session::has('alert'))
+                    <div class="alert alert-danger alert-dismissible show fade">
+                        <div class="alert-body">
+                          <button class="close" data-dismiss="alert">
+                            <span>×</span>
+                          </button>
+                           {{ Session::get('alert') }}
+                        </div>
+                    </div>
+                  @endif
                    <form method="POST" action="#" class="needs-validation" novalidate="">
                      <div class="form-group">
                        <label for="email">username</label>

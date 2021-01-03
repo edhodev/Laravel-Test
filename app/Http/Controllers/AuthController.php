@@ -27,7 +27,7 @@ class AuthController extends Controller
                 Log::store('Logged in system');
                 return redirect('/');
             } else {
-                return redirect('login')->with('alert',"username dan password tidak sesuai");
+                return redirect('login')->with(['alert'=>'Authentication Failed!']);
             }
         } catch(\Throwable $th)
         {
