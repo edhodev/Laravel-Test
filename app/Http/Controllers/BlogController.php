@@ -6,6 +6,7 @@ use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use DataTables, \Carbon\Carbon;
+use App\Helpers\Log;
 
 class BlogController extends Controller
 {
@@ -98,6 +99,7 @@ class BlogController extends Controller
                 'category' => $request->category,
                 'body'     => $request->content
             ]);
+            Log::store("created new article");
             return redirect()->route('blog')->with(['type'=>'store']);
         } catch(\Throwable $th)
         {
@@ -137,6 +139,7 @@ class BlogController extends Controller
                     'category' => $request->category,
                     'body'     => $request->content
                 ]);
+            Log::store("updated data article");
             return redirect()->route('blog')->with(['type'=>'update']);
         } catch(\Throwable $th)
         {
@@ -148,6 +151,7 @@ class BlogController extends Controller
     {
         try {
             Blog::destroy($id);
+            Log::store("deleted data article");
             return redirect()->route('blog')->with(['type'=>'delete']);
         } catch(\Throwable $th)
         {

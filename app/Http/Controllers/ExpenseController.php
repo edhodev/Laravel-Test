@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Expense;
 use Illuminate\Http\Request;
+use App\Helpers\Log;
 use DataTables;
 
 class ExpenseController extends Controller
@@ -89,6 +90,7 @@ class ExpenseController extends Controller
                 'total' => $request->total,
                 'total_price' => $request->total_price
             ]);
+            Log::store('created new expense');
             return redirect()->route('expense')->with(['type'=>'store']);
         } catch(\Throwable $th)
         {
@@ -159,6 +161,7 @@ class ExpenseController extends Controller
                     'total' => $request->total,
                     'total_price' => $request->total_price
                 ]);
+            Log::store('updated expense');
             return redirect()->route('expense')->with(['type'=>'update']);
         } catch(\Throwable $th)
         {
@@ -176,6 +179,7 @@ class ExpenseController extends Controller
     {
         try {
             Expense::destroy($id);
+            Log::store('deleted expense');
             return redirect()->route('expense')->with(['type'=>'delete']);
         } catch(\Throwable $th)
         {

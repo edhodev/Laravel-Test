@@ -6,6 +6,7 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogController;
 
 Route::get('login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('login', [AuthController::class,'auth'])->name('auth');
@@ -38,5 +39,9 @@ Route::middleware(['auth'])->group(function() {
         Route::post('store', [ExpenseController::class, 'store'])->name('expense.store');
         Route::post('update/{id}', [ExpenseController::class, 'update'])->name('expense.update');
         Route::get('delete/{id}', [ExpenseController::class, 'delete'])->name('expense.delete');
+    });
+    Route::group(['prefix' => 'log'], function () {
+        Route::get('/', [LogController::class, 'index'])->name('log');
+        Route::get('data', [LogController::class, 'data'])->name('log.data');
     });
 });

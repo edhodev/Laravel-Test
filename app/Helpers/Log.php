@@ -23,9 +23,9 @@ class Log {
     public static function data($limit=0)
     {
         if($limit == 0) {
-            $log = LogModel::get();
+            $log = LogModel::orderBy('id','desc')->get();
         } else {
-            $log = LogModel::limit($limit)->get();
+            $log = LogModel::orderBy('id','desc')->limit($limit)->get();
         }
         $log = $log->map(function($item) {
             return (object)[

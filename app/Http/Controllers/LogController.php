@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use Illuminate\Http\Request;
+use App\Helpers\Log as LogHelper;
+use DataTables;
 
 class LogController extends Controller
 {
@@ -14,7 +16,7 @@ class LogController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.log.index');
     }
 
     /**
@@ -22,9 +24,12 @@ class LogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function data()
     {
-        //
+        $data = LogHelper::data();
+        return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
     }
 
     /**

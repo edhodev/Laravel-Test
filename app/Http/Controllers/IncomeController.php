@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Income;
 use Illuminate\Http\Request;
 use DataTables;
+use App\Helpers\Log;
 
 class IncomeController extends Controller
 {
@@ -84,6 +85,7 @@ class IncomeController extends Controller
                 'total' => $request->total,
                 'total_price' => $request->total_price
             ]);
+            Log::store("created new income");
             return redirect()->route('income')->with(['type'=>'store']);
         } catch(\Throwable $th)
         {
@@ -130,6 +132,7 @@ class IncomeController extends Controller
                     'total' => $request->total,
                     'total_price' => $request->total_price
                 ]);
+            Log::store("updated income");
             return redirect()->route('income')->with(['type'=>'update']);
         } catch(\Throwable $th)
         {
@@ -141,6 +144,7 @@ class IncomeController extends Controller
     {
         try {
             Income::destroy($id);
+            Log::store("deleted income");
             return redirect()->route('income')->with(['type'=>'delete']);
         } catch(\Throwable $th)
         {
