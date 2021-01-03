@@ -5,13 +5,13 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('login', [AuthController::class,'auth'])->name('auth');
+Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::middleware(['auth'])->group(function() {
-    Route::get('/', function () {
-        return view('dashboard');
-    });
+    Route::get('/', [DashboardController::class, 'dashboard']);
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/', [BlogController::class, 'index'])->name('blog');
         Route::get('data', [BlogController::class, 'data'])->name('blog.data');

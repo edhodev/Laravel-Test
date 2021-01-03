@@ -228,6 +228,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'User' => App\Helpers\User::class,
+        'Income' => App\Helpers\Income::class,
+        'Expense' => App\Helpers\Expense::class,
 
     ],
 
