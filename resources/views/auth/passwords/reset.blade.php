@@ -36,12 +36,15 @@
                   <input type="hidden" name="token" value="{{ $token }}">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus value="{{ $email ?? old('email') }}" required>
                   </div>
 
                   <div class="form-group">
                     <label for="password">New Password</label>
                     <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password" tabindex="2" required>
+                    @error('password')
+                        <strong style="color:red">{{ $message }}</strong>
+                    @enderror
                     <div id="pwindicator" class="pwindicator">
                       <div class="bar"></div>
                       <div class="label"></div>
