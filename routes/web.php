@@ -12,7 +12,7 @@ use App\Http\Controllers\ProfileController;
 Route::get('login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('login', [AuthController::class,'auth'])->name('auth');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['authenticate'])->group(function() {
     Route::get('/', [DashboardController::class, 'dashboard']);
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/', [BlogController::class, 'index'])->name('blog');

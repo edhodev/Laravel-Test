@@ -236,16 +236,22 @@
             </div>
           </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-            <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+            @if (User::profile()->image != NULL)
+              <img alt="image" src="{{ Storage::url(User::profile()->image) }}" class="rounded-circle mr-1" width="30" height="30">
+            @else
+              <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
+            @endif
             <div class="d-sm-none d-lg-inline-block">Hi, {{ User::profile()->name }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-title">Logged in 5 min ago</div>
               <a href="{{ route('profile') }}" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>
-              <a href="{{ route('log') }}" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> Activities
-              </a>
+              @if (User::profile()->role == "Admnistrator")
+                <a href="{{ route('log') }}" class="dropdown-item has-icon">
+                  <i class="fas fa-bolt"></i> Activities
+                </a>
+              @endif
               <div class="dropdown-divider"></div>
               <a href="{{ route('auth.logout') }}" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -263,13 +269,21 @@
             <a href="index.html">St</a>
           </div>
           <ul class="sidebar-menu">
-              <li class="menu-header">Dashboard</li>
-              <li class="nav-item dropdown {{ request()->is('/') ? 'active' : '' }}" >
-                <a href="/" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
-              </li>
-              <li class="{{ request()->is('blog') ? 'active' : '' }}"><a class="nav-link" href="{{ route('blog') }}"><i class="far fa-edit"></i> <span>Blog</span></a></li>
-              <li class="{{ request()->is('incomes') ? 'active' : '' }}"><a class="nav-link" href="{{ route('income') }}"><i class="far fa-edit"></i> <span>Incomes</span></a></li>
-              <li class="{{ request()->is('expense') ? 'active' : '' }}"><a class="nav-link" href="{{ route('expense') }}"><i class="far fa-edit"></i> <span>Expense</span></a></li>
+               @if (User::profile()->role == "Admnistrator")
+                <li class="menu-header">Dashboard</li>
+                <li class="nav-item dropdown {{ request()->is('/') ? 'active' : '' }}" >
+                  <a href="/" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
+                </li>
+               @endif
+               @if (User::profile()->role == "Admnistrator" || User::profile()->role == "Editor")
+                <li class="menu-header">Editor Menu</li>
+                <li class="{{ request()->is('blog') ? 'active' : '' }}"><a class="nav-link" href="{{ route('blog') }}"><i class="far fa-edit"></i> <span>Blog</span></a></li>
+               @endif
+               @if (User::profile()->role == "Admnistrator" || User::profile()->role == "Finance")
+                <li class="menu-header">Finance Menu</li>
+                <li class="{{ request()->is('incomes') ? 'active' : '' }}"><a class="nav-link" href="{{ route('income') }}"><i class="far fa-edit"></i> <span>Incomes</span></a></li>
+                <li class="{{ request()->is('expense') ? 'active' : '' }}"><a class="nav-link" href="{{ route('expense') }}"><i class="far fa-edit"></i> <span>Expense</span></a></li>
+               @endif
             </ul>
         </aside>
       </div>

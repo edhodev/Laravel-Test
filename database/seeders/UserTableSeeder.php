@@ -30,5 +30,25 @@ class UserTableSeeder extends Seeder
             'type' => 'Internal',
             'password' => Hash::make('password123')
         ]);
+        User::create([
+            'name' => 'Finance User',
+            'username' => 'userfinance',
+            'address' => 'Makassar',
+            'phone' => '0895800710500',
+            'email' => 'finance@outlook.com',
+            'role' => 'Finance',
+            'type' => 'Internal',
+            'password' => Hash::make('password123')
+        ]);
+        User::create([
+            'name' => 'User Editor',
+            'username' => 'usereditor',
+            'address' => 'Makassar',
+            'phone' => '0895800710500',
+            'email' => 'editor@outlook.com',
+            'role' => 'Editor',
+            'type' => 'Internal',
+            'password' => Hash::make('password123')
+        ]);
     }
 }
