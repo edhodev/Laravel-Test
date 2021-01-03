@@ -10,10 +10,8 @@ use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 
 Auth::routes(['verify'=>true]);
-// Route::get('login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('login', [AuthController::class,'auth'])->name('auth');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-// Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::middleware(['authenticate'])->group(function() {
     Route::get('/', [DashboardController::class, 'dashboard']);
     Route::group(['prefix' => 'blog'], function () {
