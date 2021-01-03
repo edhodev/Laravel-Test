@@ -30,6 +30,11 @@
               <div class="card-header"><h4>Forgot Password</h4></div>
 
               <div class="card-body">
+                @if (session('status'))
+                      <div class="alert alert-success" role="alert">
+                          {{ session('status') }}
+                      </div>
+                  @endif
                 <p class="text-muted">We will send a link to reset your password</p>
                 <form method="POST" action="{{ route('password.email') }}">
                   @csrf
