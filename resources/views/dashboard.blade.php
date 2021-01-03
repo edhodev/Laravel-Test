@@ -68,10 +68,10 @@
     <div class="col-lg-8 col-md-12 col-12 col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h4>Statistics</h4>
+          <h4>Income</h4>
         </div>
         <div class="card-body">
-          <canvas id="myChart" height="508" width="839" class="chartjs-render-monitor" style="display: block; width: 839px; height: 508px;"></canvas>
+          <canvas id="custom" height="508" width="839" class="chartjs-render-monitor" style="display: block; width: 839px; height: 508px;"></canvas>
         </div>
       </div>
     </div>
@@ -104,4 +104,52 @@
     </div>
   </div>
 @endsection
+@push('scripts')
+    <script>
+      "use strict";
+
+        var statistics_chart = document.getElementById("custom").getContext('2d');
+
+        var custom = new Chart(statistics_chart, {
+          type: 'line',
+          data: {
+            labels: {!! Income::grafik()["date"] !!},
+            datasets: [
+            {
+              label: 'Income',
+              data: {!! Income::grafik()["total"] !!},
+              borderWidth: 5,
+              borderColor: '#6777ef',
+              backgroundColor: 'transparent',
+              pointBackgroundColor: '#fff',
+              pointBorderColor: '#6777ef',
+              pointRadius: 4
+            }],
+          },
+          options: {
+            legend: {
+              display: false
+            },
+            scales: {
+              yAxes: [{
+                gridLines: {
+                  display: false,
+                  drawBorder: false,
+                },
+                ticks: {
+                  stepSize: 150
+                }
+              }],
+              xAxes: [{
+                gridLines: {
+                  color: '#fbfbfb',
+                  lineWidth: 2
+                }
+              }]
+            },
+          }
+        });
+
+    </script>
+@endpush
 
