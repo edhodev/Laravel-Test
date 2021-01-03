@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('auth.login');
+        return view('login');
     }
 
     public function auth(Request $request)
@@ -39,7 +39,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('auth.login');
+        return redirect()->route('login');
     }
 
     public function reset()
