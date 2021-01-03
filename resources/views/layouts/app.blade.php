@@ -269,17 +269,17 @@
             <a href="index.html">St</a>
           </div>
           <ul class="sidebar-menu">
-               @if (User::profile()->role == "Admnistrator" || User::profile()->type="Public")
+               @if (User::profile()->role == "Admnistrator" || User::profile()->type=="Public")
                 <li class="menu-header">Dashboard</li>
                 <li class="nav-item dropdown {{ request()->is('/') ? 'active' : '' }}" >
                   <a href="/" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
                 </li>
                @endif
-               @if (User::profile()->role == "Admnistrator" || User::profile()->role == "Editor" || User::profile()->type="Public")
+               @if (User::profile()->role == "Admnistrator" || User::profile()->role == "Editor" || User::profile()->type=="Public")
                 <li class="menu-header">Editor Menu</li>
                 <li class="{{ request()->is('blog') ? 'active' : '' }}"><a class="nav-link" href="{{ route('blog') }}"><i class="far fa-edit"></i> <span>Blog</span></a></li>
                @endif
-               @if (User::profile()->role == "Admnistrator" || User::profile()->role == "Finance" || User::profile()->type="Public")
+               @if (User::profile()->role == "Admnistrator" || User::profile()->role == "Finance" || User::profile()->type=="Public")
                 <li class="menu-header">Finance Menu</li>
                 <li class="{{ request()->is('incomes') ? 'active' : '' }}"><a class="nav-link" href="{{ route('income') }}"><i class="far fa-edit"></i> <span>Incomes</span></a></li>
                 <li class="{{ request()->is('expense') ? 'active' : '' }}"><a class="nav-link" href="{{ route('expense') }}"><i class="far fa-edit"></i> <span>Expense</span></a></li>
