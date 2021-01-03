@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $profit = Income::total() - Expense::total();
-        $log = Log::data(4);
+        $log = Log::data(3);
         return view('dashboard', compact('profit', 'log'));
     }
 }
