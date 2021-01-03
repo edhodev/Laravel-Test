@@ -10,8 +10,10 @@ use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('login', [AuthController::class, 'login'])->name('auth.login');
+Route::get('reset', [AuthController::class, 'reset'])->name('auth.reset');
 Route::post('login', [AuthController::class,'auth'])->name('auth');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::post('send', [AuthController::class, 'send'])->name('auth.send');
 Route::middleware(['authenticate'])->group(function() {
     Route::get('/', [DashboardController::class, 'dashboard']);
     Route::group(['prefix' => 'blog'], function () {
