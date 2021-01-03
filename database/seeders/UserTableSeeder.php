@@ -28,7 +28,8 @@ class UserTableSeeder extends Seeder
             'email' => 'ridho.pangestu@outlook.com',
             'role' => 'Admnistrator',
             'type' => 'Internal',
-            'password' => Hash::make('password123')
+            'password' => Hash::make('password123'),
+            'email_verified_at' => '2021-01-03 11:06:00'
         ]);
         User::create([
             'name' => 'Finance User',
@@ -38,7 +39,8 @@ class UserTableSeeder extends Seeder
             'email' => 'finance@outlook.com',
             'role' => 'Finance',
             'type' => 'Internal',
-            'password' => Hash::make('password123')
+            'password' => Hash::make('password123'),
+            'email_verified_at' => '2021-01-03 11:06:00'
         ]);
         User::create([
             'name' => 'User Editor',
@@ -48,7 +50,8 @@ class UserTableSeeder extends Seeder
             'email' => 'editor@outlook.com',
             'role' => 'Editor',
             'type' => 'Internal',
-            'password' => Hash::make('password123')
+            'password' => Hash::make('password123'),
+            'email_verified_at' => '2021-01-03 11:06:00'
         ]);
     }
 }
