@@ -46,7 +46,8 @@ class Kernel extends HttpKernel
 
         'authenticate' => [
             \App\Http\Middleware\Authenticate::class,
-            \App\Http\Middleware\RoleMiddleware::class
+            \App\Http\Middleware\RoleMiddleware::class,
+            \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         ]
     ];
 
