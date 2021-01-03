@@ -7,6 +7,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('login', [AuthController::class,'auth'])->name('auth');
@@ -43,5 +44,9 @@ Route::middleware(['auth'])->group(function() {
     Route::group(['prefix' => 'log'], function () {
         Route::get('/', [LogController::class, 'index'])->name('log');
         Route::get('data', [LogController::class, 'data'])->name('log.data');
+    });
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('profile');
+        Route::post('update', [ProfileController::class, 'update'])->name('profile.update');
     });
 });
